@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[Producto] (
+    [IdProducto]         INT             IDENTITY (1, 1) NOT NULL,
+    [CodProducto]        VARCHAR (30)    NOT NULL,
+    [DescripcionCorta]   VARCHAR (30)    NOT NULL,
+    [DescripcionLarga]   VARCHAR (60)    NOT NULL,
+    [CodAlmacen]         VARCHAR (3)     NOT NULL,
+    [CodUnidadMedida]    VARCHAR (3)     NOT NULL,
+    [DiasVencimiento]    INT             CONSTRAINT [DF_PR_DiasVencimiento] DEFAULT ((0)) NULL,
+    [ValorReferencia]    NUMERIC (10, 2) NULL,
+    [Largo]              NUMERIC (10, 2) CONSTRAINT [DF_PR_Largo] DEFAULT ((0)) NULL,
+    [Ancho]              NUMERIC (10, 2) CONSTRAINT [DF_PR_Ancho] DEFAULT ((0)) NULL,
+    [Alto]               NUMERIC (10, 2) CONSTRAINT [DF_PR_Alto] DEFAULT ((0)) NULL,
+    [Volumen]            NUMERIC (10, 2) CONSTRAINT [DF_PR_Volumen] DEFAULT ((0)) NULL,
+    [PesoUnidad]         NUMERIC (10, 2) CONSTRAINT [DF_PR_PesoUnidad] DEFAULT ((0)) NULL,
+    [PesoTara]           NUMERIC (10, 2) NULL,
+    [ControlElaboracion] CHAR (1)        CONSTRAINT [DF_PR_ControlElaboracion] DEFAULT ('N') NOT NULL,
+    [ControlExpiracion]  CHAR (1)        CONSTRAINT [DF_PR_ControlExpiracion] DEFAULT ('N') NOT NULL,
+    [ControlLote]        CHAR (1)        CONSTRAINT [DF_PR_ControlLote] DEFAULT ('N') NOT NULL,
+    [ControlSerie]       CHAR (1)        CONSTRAINT [DF_PR_ControlSerie] DEFAULT ('N') NOT NULL,
+    [FechaUltimoConteo]  SMALLDATETIME   NULL,
+    [ProductoPeligroso]  VARCHAR (1)     CONSTRAINT [DF_PR_ProductoPeligroso] DEFAULT ('N') NOT NULL,
+    [Rotacion]           VARCHAR (5)     NULL,
+    CONSTRAINT [PK_Producto] PRIMARY KEY CLUSTERED ([IdProducto] ASC) WITH (FILLFACTOR = 90),
+    CONSTRAINT [FK_Producto_Almacen] FOREIGN KEY ([CodAlmacen]) REFERENCES [dbo].[Almacen] ([CodAlmacen]),
+    CONSTRAINT [UC_Producto_Almacen] UNIQUE NONCLUSTERED ([IdProducto] ASC, [CodAlmacen] ASC)
+);
+

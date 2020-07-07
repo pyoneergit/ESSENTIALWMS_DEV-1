@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[UbicacionFisica] (
+    [CodUbicacion]        VARCHAR (50)    NOT NULL,
+    [CodAlmacen]          VARCHAR (3)     NOT NULL,
+    [Hilera]              SMALLINT        NOT NULL,
+    [Columna]             SMALLINT        NOT NULL,
+    [Nivel]               SMALLINT        NOT NULL,
+    [Calle]               SMALLINT        NULL,
+    [CodEstado]           CHAR (1)        CONSTRAINT [DF_UF_CodEstado] DEFAULT ('A') NOT NULL,
+    [CodZona]             VARCHAR (10)    NOT NULL,
+    [FlujoPicking]        VARCHAR (10)    NULL,
+    [TipoUM]              VARCHAR (10)    NULL,
+    [CapacidadUM]         SMALLINT        CONSTRAINT [DF_UF_CapacidadUM] DEFAULT ((0)) NOT NULL,
+    [CapacidadVolumen]    NUMERIC (10, 2) CONSTRAINT [DF_UF_CapacidadVolumen] DEFAULT ((0)) NOT NULL,
+    [TipoUbicacion]       VARCHAR (10)    NOT NULL,
+    [UltimaFechaConteo]   SMALLDATETIME   NULL,
+    [Largo]               NUMERIC (10, 2) CONSTRAINT [DF_UF_Largo] DEFAULT ((0)) NOT NULL,
+    [Ancho]               NUMERIC (10, 2) CONSTRAINT [DF_UF_Ancho] DEFAULT ((0)) NOT NULL,
+    [Alto]                NUMERIC (10, 2) CONSTRAINT [DF_UF_Alto] DEFAULT ((0)) NOT NULL,
+    [UbicacionReposicion] VARCHAR (50)    NULL,
+    [AreaPicking]         VARCHAR (10)    NULL,
+    [TipoLpn]             VARCHAR (1)     CONSTRAINT [DF_UF_TipoLpn] DEFAULT ('S') NOT NULL,
+    [SecuenciaOrden]      INT             NULL,
+    CONSTRAINT [PK_UbicacionFisica] PRIMARY KEY CLUSTERED ([CodUbicacion] ASC, [CodAlmacen] ASC) WITH (FILLFACTOR = 90),
+    CONSTRAINT [FK_UbicacionFisica_Almacen] FOREIGN KEY ([CodAlmacen]) REFERENCES [dbo].[Almacen] ([CodAlmacen]),
+    CONSTRAINT [FK_UbicacionFisica_Zona] FOREIGN KEY ([CodZona], [CodAlmacen]) REFERENCES [dbo].[ZonaUbicacion] ([CodZona], [CodAlmacen])
+);
+
