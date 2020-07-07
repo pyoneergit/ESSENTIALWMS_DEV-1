@@ -263,9 +263,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Views\Ve_SisParametros.sql">
-      <AnsiNulls>On</AnsiNulls>
-    </Build>
     <Build Include="Security\Permissions.sql" />
   </ItemGroup>
 </Project>
